@@ -19,7 +19,7 @@ chmod 600 key.pem
 [ -f cert.pem ] ||
     openssl x509 -req -in csr.pem -out cert.pem -signkey key.pem -days 24855
 
-[ -f tcp443.conf ] || cat >tcp443.conf <<EOF
+[ -f tcp7443.conf ] || cat >tcp7443.conf <<EOF
 server 192.168.255.0 255.255.255.128
 verb 3
 duplicate-cn
@@ -34,9 +34,9 @@ push "dhcp-option DNS 8.8.8.8"
 push "dhcp-option DNS 8.8.4.4"
 
 proto tcp-server
-port 443
-dev tun443
-status openvpn-status-443.log
+port 7443
+dev tun7443
+status openvpn-status-7443.log
 EOF
 
 [ -f udp1194.conf ] || cat >udp1194.conf <<EOF
@@ -104,7 +104,7 @@ EOF
 
 iptables -t nat -A POSTROUTING -s 192.168.255.0/24 -o eth0 -j MASQUERADE
 
-touch tcp443.log udp1194.log http8080.log
-while true ; do openvpn tcp443.conf ; done >> tcp443.log &
+touch tcp7443.log udp1194.log http8080.log
+while true ; do openvpn tcp7443.conf ; done >> tcp7443.log &
 while true ; do openvpn udp1194.conf ; done >> udp1194.log &
 tail -F *.log
