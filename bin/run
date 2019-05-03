@@ -59,10 +59,10 @@ dev tun1194
 status openvpn-status-1194.log
 EOF
 
-MY_IP_ADDR=$(curl -s http://myip.enix.org/REMOTE_ADDR)
+MY_IP_ADDR=$(wget -qO- ifconfig.co)
 [ "$MY_IP_ADDR" ] || {
     echo "Sorry, I could not figure out my public IP address."
-    echo "(I use http://myip.enix.org/REMOTE_ADDR/ for that purpose.)"
+    echo "(I use wget -qO- ifconfig.co for that purpose.)"
     exit 1
 }
 
