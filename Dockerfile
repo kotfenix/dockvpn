@@ -1,4 +1,4 @@
-FROM alpine:3.9
+FROM alpine:3.10
 RUN apk add --update --no-cache openssl openvpn iptables ip6tables nftables socat
 ADD ./bin /usr/local/sbin
 VOLUME /etc/openvpn
